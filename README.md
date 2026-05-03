@@ -28,6 +28,43 @@ The framework includes pre-built expert agents:
 - **Zero-Trust & Human-in-the-Loop (HITL):** Enforces strict boundaries; non-destructive tasks run autonomously, while critical file operations pause to mandate explicit user approval.
 - **A2A & Gemini CLI Ready:** Natively supports Agent-to-Agent communication, allowing deployment as a standalone Web Server or a remote Gemini CLI sub-agent.
 
+## System Execution Flow in Practice
+
+To illustrate how the theories of SOTCN and Federated CARA function in a live environment, the practical execution flow of the system is detailed below. This flow highlights the dynamic skill extraction and the ephemeral assembly of sub-agents.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant User as User
+    participant CLI as Gemini CLI (Client)
+    participant AM as Agent Manager (A2A Server)
+    participant RAG as Agent Bank (RAG & Registry)
+    participant Temp as Temporal Team (Sub-Agents)
+
+    Note over AM, RAG: Initialization Phase
+    RAG-->>AM: Read all registered agents
+    AM->>AM: Dynamically extract skills via Gemini & register to agent-manager
+    AM->>AM: Launch agent-manager as A2A server
+
+    Note over User, CLI: Execution Phase
+    User->>CLI: Launch Gemini CLI
+    User->>CLI: Input prompt
+    CLI->>AM: Forward task (if within registered skills)
+    AM->>RAG: searchExpertAgentsTool (Query agents)
+
+    alt No suitable agents found
+        RAG-->>AM: Return "Not found"
+        AM-->>CLI: Return limitation message
+        CLI-->>User: Display limitation message
+    else Suitable agents found
+        RAG-->>AM: Return required expert agent keys
+        AM->>Temp: executeWithDynamicSubAgentsTool (Assemble & Execute)
+        Temp-->>AM: Return execution results from the temporal team
+        AM-->>CLI: Synthesize and return final response
+        CLI-->>User: Display final response
+    end
+```
+
 ---
 
 ## Setup Instructions
