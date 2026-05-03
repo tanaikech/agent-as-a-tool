@@ -1,10 +1,12 @@
 <a name="top"></a>
 
-# Agent-as-a-Tool: Infinite-Scale AI Orchestration
+# Agent-as-a-Tool: A New Era of AI Orchestration
 
 This repository provides a robust framework for the **Agent-as-a-Tool** paradigm. As Large Language Model (LLM) agents increasingly integrate numerous external systems, they suffer from **Tool Space Interference (TSI)**, a phenomenon causing context bloat, attention dilution, and degraded reasoning accuracy.
 
 This system completely overcomes TSI by dynamically discovering, assembling, and executing stateful, autonomous sub-agents on the fly. Built with **Node.js**, **TypeScript**, and **@google/adk**, it acts as a practical implementation of the Self-Optimizing Tool Caching Network (SOTCN) and Federated Context-Aware Routing Architecture (Federated CARA).
+
+![](images/fig1a.jpg)
 
 ## Overview
 
