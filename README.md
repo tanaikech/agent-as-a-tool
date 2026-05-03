@@ -8,6 +8,8 @@ This system completely overcomes TSI by dynamically discovering, assembling, and
 
 ![](images/fig1a.jpg)
 
+[![Agent-as-a-Tool](https://img.youtube.com/vi/6SChE0AjOq8/0.jpg)](https://www.youtube.com/watch?v=6SChE0AjOq8)
+
 ## Overview
 
 This project implements a highly scalable multi-agent orchestration system that utilizes a Retrieval-Augmented Generation (RAG) database, called an **Agent Bank**, to manage toolsets. Instead of loading massive verbose JSON schemas into the active context, the primary orchestrator dynamically searches the Agent Bank, extracts only the necessary experts, and forms an ephemeral task force.
