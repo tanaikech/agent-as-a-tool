@@ -8,8 +8,6 @@ This system completely overcomes TSI by dynamically discovering, assembling, and
 
 ![](images/fig1a.jpg)
 
-[![Agent-as-a-Tool](https://img.youtube.com/vi/6SChE0AjOq8/0.jpg)](https://www.youtube.com/watch?v=6SChE0AjOq8)
-
 ## Overview
 
 This project implements a highly scalable multi-agent orchestration system that utilizes a Retrieval-Augmented Generation (RAG) database, called an **Agent Bank**, to manage toolsets. Instead of loading massive verbose JSON schemas into the active context, the primary orchestrator dynamically searches the Agent Bank, extracts only the necessary experts, and forms an ephemeral task force.
@@ -180,6 +178,10 @@ Once running via the Web UI or Gemini CLI (using `@agent-as-a-tool`), you can te
 **Prompt:** _"Create a new Google Spreadsheet by putting a formula `=GOOGLEFINANCE("CURRENCY:USDJPY")` in cell 'A1'. Then, get and show the value..."_
 
 - **Logic:** Retrieves the `autonomous-google-workspace-agent`. Recognizing a file creation workflow, the orchestrator triggers HITL, asking for explicit user permission. Once approved, the temporal team tests and generates the GAS code via local sandboxing.
+
+## YouTube
+
+[![Agent-as-a-Tool](https://img.youtube.com/vi/6SChE0AjOq8/0.jpg)](https://www.youtube.com/watch?v=6SChE0AjOq8)
 
 ---
 
