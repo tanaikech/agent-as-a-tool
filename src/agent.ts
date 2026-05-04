@@ -269,26 +269,31 @@ const agentData = Object.entries(AGENT_REGISTRY).map(([k, v]) => ({
   description: v().description || "No description",
 }));
 
-const keywordPrompt = `Based on the following agent names and descriptions, extract relevant keywords representing tasks these agents can handle.
-Format the output EXACTLY as a comma-separated list, like 'keyword1,keyword2,keyword3'. Do not include any other text or explanation.
+// Prompt updated to generate a concise narrative summary instead of a keyword list.
+// This ensures Gemini CLI understands contextually what the agent can do, while keeping
+// it short to prevent prompt bloat and hallucination when the agent count grows.
+const capabilitiesSummaryPrompt = `Based on the following list of specialized agents and their descriptions, write a highly concise summary of the task capabilities this orchestrator agent can handle.
+Do NOT output a list of keywords. Instead, write a brief, cohesive paragraph (maximum 2-3 sentences) clearly explaining the concrete capabilities available.
+To prevent hallucination, strictly base your summary ONLY on the provided agents and keep it brief but highly descriptive.
 
 Agents:
 ${JSON.stringify(agentData, null, 2)}`;
 
-let extractedKeywords = "{various complex tasks}";
+let capabilitiesSummary =
+  "managing various complex tasks by delegating to specialized sub-agents.";
 
 try {
   const genAI = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
   const result = await genAI.models.generateContent({
-    model: LOW_LATENCY_MODEL, // or DEFAULT_MODEL
-    contents: [{ role: "user", parts: [{ text: keywordPrompt }] }],
+    model: LOW_LATENCY_MODEL, // Fast model to minimize startup latency
+    contents: [{ role: "user", parts: [{ text: capabilitiesSummaryPrompt }] }],
   });
   if (result?.text) {
-    extractedKeywords = result.text.trim();
+    capabilitiesSummary = result.text.trim();
   }
 } catch (error: any) {
   console.warn(
-    `Failed to extract keywords for agent-manager description: ${error.message}`,
+    `Failed to generate capabilities summary for agent-manager description: ${error.message}`,
   );
 }
 
@@ -298,7 +303,7 @@ try {
 export const agentManager = new LlmAgent({
   name: "agent-manager",
   model: DEFAULT_MODEL,
-  description: `Senior Orchestrator that manages user interactions, searches for capabilities, analyzes task dependencies, and dynamically forms and delegates tasks to a temporary team of sub-agents. Supported task capabilities include: [${extractedKeywords}]\n\n`,
+  description: `Senior Orchestrator that manages user interactions, searches for capabilities, analyzes task dependencies, and dynamically forms and delegates tasks to a temporary team of sub-agents. Orchestrator Capabilities Summary: ${capabilitiesSummary}\n\n`,
   instruction: AGENT_INSTRUCTIONS.ORCHESTRATOR,
   tools: [searchExpertAgentsTool, executeWithDynamicSubAgentsTool],
 });
