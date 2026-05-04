@@ -8,6 +8,12 @@ This system completely overcomes TSI by dynamically discovering, assembling, and
 
 ![](images/fig1a.jpg)
 
+**Articles:**
+
+- Medium: [https://medium.com/google-cloud/agent-as-a-tool-a-new-era-of-ai-orchestration-92773df7cee2](https://medium.com/google-cloud/agent-as-a-tool-a-new-era-of-ai-orchestration-92773df7cee2)
+- DEV: [https://dev.to/gde/agent-as-a-tool-a-new-era-of-ai-orchestration-n94](https://dev.to/gde/agent-as-a-tool-a-new-era-of-ai-orchestration-n94)
+- LinkedIn: [https://www.linkedin.com/pulse/agent-as-a-tool-new-era-ai-orchestration-kanshi-tanaike-agepc/](https://www.linkedin.com/pulse/agent-as-a-tool-new-era-ai-orchestration-kanshi-tanaike-agepc/)
+
 ## Overview
 
 This project implements a highly scalable multi-agent orchestration system that utilizes a Retrieval-Augmented Generation (RAG) database, called an **Agent Bank**, to manage toolsets. Instead of loading massive verbose JSON schemas into the active context, the primary orchestrator dynamically searches the Agent Bank, extracts only the necessary experts, and forms an ephemeral task force.
