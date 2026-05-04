@@ -204,4 +204,7 @@ Once running via the Web UI or Gemini CLI (using `@agent-as-a-tool`), you can te
 - v1.0.0 (May 3, 2026)
   - Initial release introducing the Agent-as-a-Tool paradigm with RAG-based dynamic injection and A2A integration.
 
+- v1.0.1 (May 4, 2026)
+  - Improved the dynamic generation of the `agent-manager` description. Replaced the list of extracted keywords with a concise, AI-generated summary paragraph of the available sub-agents' capabilities. This enhances the parent orchestrator's (e.g., Gemini CLI) semantic understanding for more accurate routing, while preventing prompt bloat and hallucination when scaling the number of agents in the Agent Bank.
+
 [TOP](#top)
