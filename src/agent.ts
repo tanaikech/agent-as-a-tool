@@ -269,12 +269,12 @@ const agentData = Object.entries(AGENT_REGISTRY).map(([k, v]) => ({
   description: v().description || "No description",
 }));
 
-// Prompt updated to generate a concise narrative summary instead of a keyword list.
-// This ensures Gemini CLI understands contextually what the agent can do, while keeping
-// it short to prevent prompt bloat and hallucination when the agent count grows.
-const capabilitiesSummaryPrompt = `Based on the following list of specialized agents and their descriptions, write a highly concise summary of the task capabilities this orchestrator agent can handle.
-Do NOT output a list of keywords. Instead, write a brief, cohesive paragraph (maximum 2-3 sentences) clearly explaining the concrete capabilities available.
-To prevent hallucination, strictly base your summary ONLY on the provided agents and keep it brief but highly descriptive.
+// The prompt has been updated to dynamically adjust the length of the summary
+// based on the number of provided agents, scaling up to a maximum of 10 sentences.
+const capabilitiesSummaryPrompt = `Based on the following list of specialized agents and their descriptions, write a cohesive summary of the task capabilities this orchestrator agent can handle.
+Do NOT output a list of keywords. Instead, write a clear, cohesive paragraph explaining the concrete capabilities available.
+Crucially, adjust the length of your summary proportionally to the number of agents provided: use a few sentences if there are only a few agents, but you may use up to a maximum of 10 sentences if there are many agents.
+To prevent hallucination, strictly base your summary ONLY on the provided agents and be highly descriptive.
 
 Agents:
 ${JSON.stringify(agentData, null, 2)}`;
